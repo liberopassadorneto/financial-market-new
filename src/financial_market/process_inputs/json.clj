@@ -1,4 +1,4 @@
-(ns financial-market.inputs.json
+(ns financial-market.process-inputs.json
   (:require [cheshire.core :as json]))
 
 (defn json->clj [json-input]

@@ -1,22 +1,29 @@
 (ns financial-market.main
   (:require
-   [financial-market.inputs.digest :refer [digest-data]]
-   [financial-market.total-cost.logic :refer [total-cost]]
-   [financial-market.total-stocks.logic :refer [total-stocks]]))
+    [financial-market.process-inputs.digest :refer [digest-data]]
+    [financial-market.process-total-cost.logic :refer [process-total-cost]]
+    [financial-market.process-total-stocks.logic :refer [process-total-stocks]]
+    [financial-market.process-weighted-average.logic :refer [process-weighted-average]]
+    [financial-market.process-acquisition-cost.logic :refer [process-acquisition-cost]]))
 
 (defn -main
   "Recieves a path, or a input file through piping"
   [input]
   (-> input
-    (digest-data)
-    (total-cost)
-    (total-stocks)))
+      (digest-data)
+      (process-total-cost)
+      (process-total-stocks)
+      (process-weighted-average)
+      (process-acquisition-cost)))
 
 (comment
  (let [path "./data/mock.json"]
    (-> path
-    (digest-data)
-    (total-cost)))
+       (digest-data)
+       (process-total-cost)
+       (process-total-stocks)
+       (process-weighted-average)
+       (process-acquisition-cost)))
 
  (-main "./data/mock.json"))
  ;; => [{:operation "buy",

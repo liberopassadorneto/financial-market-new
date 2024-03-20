@@ -6,5 +6,5 @@
   (testing "Function add-total-of-stocks-to-map"
     (let [transaction {:operation "buy", :unit-cost 10.00, :quantity 100}
           total-of-stocks 100
-          expected {:operation "buy", :unit-cost 10.00, :quantity 100, :total-of-stocks 100}]
+          expected {:operation "buy", :unit-cost 10.00, :quantity 100, :total-stocks 100}]
       (is (= expected (add-total-of-stocks-to-map transaction total-of-stocks))))))

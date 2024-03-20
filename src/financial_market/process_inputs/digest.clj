@@ -1,7 +1,7 @@
-(ns financial-market.inputs.digest
+(ns financial-market.process-inputs.digest
   (:require
    [clojure.java.io :as io]
-   [financial-market.inputs.json :refer [json->clj]]))
+   [financial-market.process-inputs.json :refer [json->clj]]))
 
 
 (defn digest-json-file

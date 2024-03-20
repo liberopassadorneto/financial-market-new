@@ -1,23 +1,23 @@
-(ns financial-market.total-stocks.logic)
+(ns financial-market.process-total-stocks.logic)
 
-(defn stocks [total transaction]
+(defn calculate-total-stocks [total transaction]
   (let [quantity (:quantity transaction)
         operation (:operation transaction)]
    (if (= operation "buy")
      (+ total quantity)
      (- total quantity))))
 
-(defn total-stocks-map [transaction total-stocks]
-  (assoc transaction :total-of-stocks total-stocks))
+(defn total-stocks-to-map [transaction total-stocks]
+  (assoc transaction :total-stocks total-stocks))
 
-(defn total-stocks
+(defn process-total-stocks
   [transactions]
   (loop [results           []
          total-stock       0
          transaction       (first transactions)
          rest-transactions (rest transactions)]
-    (let [new-stock         (stocks total-stock transaction)
-          new-transaction   (total-stocks-map transaction new-stock)]
+    (let [new-stock         (calculate-total-stocks total-stock transaction)
+          new-transaction   (total-stocks-to-map transaction new-stock)]
       (if (empty? rest-transactions)
         (conj results new-transaction)
         (recur (conj results new-transaction)
