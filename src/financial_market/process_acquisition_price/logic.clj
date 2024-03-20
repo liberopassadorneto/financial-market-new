@@ -1,9 +1,9 @@
-(ns financial-market.process-acquisition-cost.logic
+(ns financial-market.process-acquisition-price.logic
   (:require [financial-market.helpers.transactions :as t]))
 
-(defn calculate-acquisition-cost [transaction]
+(defn calculate-acquisition-price [transaction]
   (* (:weighted-average transaction) (:quantity transaction)))
 
-(defn process-acquisition-cost
+(defn process-acquisition-price
   [transactions]
-  (t/update-transactions transactions calculate-acquisition-cost :acquisition-cost))
+  (t/update-transactions transactions calculate-acquisition-price :acquisition-price))
