@@ -6,9 +6,9 @@
 (defn calculate-loss-accumulation [loss loss-accumulation]
   (+ loss-accumulation loss))
 
-(defn process-loss [total-cost acquisition-price loss-accumulation]
-  (let [loss (calculate-loss total-cost acquisition-price)]
-    (calculate-loss-accumulation loss-accumulation loss)))
+#_(defn process-loss [total-cost acquisition-price loss-accumulation]
+    (let [loss (calculate-loss total-cost acquisition-price)]
+      (calculate-loss-accumulation loss-accumulation loss)))
 
 
 (defn process-loss [total-cost acquisition-price loss-accumulation]
