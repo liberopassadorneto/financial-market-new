@@ -28,8 +28,8 @@
          net-income 0
          transaction (first transactions)
          rest-transactions (rest transactions)]
-    (let [{:keys [operation total-cost acquisition-price]} transaction]
-          ;; loss-acc (loss/process-loss total-cost acquisition-price loss-acc)]
+    (let [{:keys [operation total-cost acquisition-price]} transaction
+          loss-acc (loss/process-loss total-cost acquisition-price loss-acc)]
       (if (empty? rest-transactions)
         (if (= operation "sell")
          (if (profit? total-cost acquisition-price)
@@ -37,9 +37,7 @@
            (let [profit (profit/calculate-profit total-cost acquisition-price)
                  profit-acc (profit/process-profit total-cost acquisition-price loss-acc profit-acc)
                  loss-acc (profit/calculate-loss-accumulation-after-deductions profit loss-acc)
-                 new-transaction-map (assoc transaction :net-income (calculate-net-income profit-acc loss-acc))
-                 _ (println {:loss-acc loss-acc
-                             :profit-acc profit-acc})]
+                 new-transaction-map (assoc transaction :net-income (calculate-net-income profit-acc loss-acc))]
              (conj results new-transaction-map))
              
            ;; update case: loss
@@ -62,9 +60,7 @@
               (rest rest-transactions)))
           (let [loss-acc (loss/process-loss total-cost acquisition-price loss-acc)
                 net-income (calculate-net-income profit-acc loss-acc)
-                new-transaction-map (assoc transaction :net-income (calculate-net-income profit-acc loss-acc))
-                _ (println {:loss-acc loss-acc
-                            :profit-acc profit-acc})]
+                new-transaction-map (assoc transaction :net-income (calculate-net-income profit-acc loss-acc))]
             (recur
              (conj results new-transaction-map)
              (identity loss-acc)
@@ -75,4 +71,3 @@
 
 
 
-;; update loss)))))

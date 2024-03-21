@@ -17,8 +17,8 @@
       true
       false)))
 
-(defn tax [{:keys [total-cost net-income]}]
+(defn calculate-tax
+  [{:keys [total-cost net-income] :as transaction}]
   (if (tax? total-cost)
     (tax-net-income net-income)
     0))
-

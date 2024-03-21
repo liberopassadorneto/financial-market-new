@@ -1,5 +1,17 @@
 (ns financial-market.helpers.transactions)
 
+(defn decrease-net-income?
+  [{:keys [last-net-income net-income]}]
+  (let [diff-net-income (- net-income last-net-income)]
+   (if (< diff-net-income 0)
+     true
+     false)))
+
+(defn buy? [operation]
+  (if (= operation "buy")
+    true
+    false))
+
 (defn update-transactions
   [transactions operation new-key]
   (loop [results []
