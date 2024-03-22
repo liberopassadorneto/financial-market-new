@@ -3,7 +3,6 @@
    [clojure.java.io :as io]
    [financial-market.process-inputs.json :refer [json->clj]]))
 
-
 (defn digest-json-file
   [path]
   (-> path

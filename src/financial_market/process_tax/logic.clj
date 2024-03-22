@@ -2,7 +2,8 @@
   (:require
    [clojure.pprint :as pprint]
    [financial-market.helpers.transactions :as h]
-   [financial-market.process-tax.tax :as tax]))
+   [financial-market.process-tax.tax :as tax]
+   [financial-market.helpers.encoding :as encoding]))
 
 (defn process-operation
   [{:keys [operation last-transaction transaction results]}]
@@ -39,3 +40,10 @@
               (identity transaction)
               (first rest-transactions)
               (rest rest-transactions))))))
+
+(defn filter-taxes
+  [transactions]
+  (let [taxes []]
+   (for [{:keys [tax]} transactions]
+     (conj taxes {:tax tax}))))
+   
