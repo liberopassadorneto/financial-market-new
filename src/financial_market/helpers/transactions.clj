@@ -2,15 +2,22 @@
 
 (defn decrease-net-income?
   [{:keys [last-net-income net-income]}]
-  (let [diff-net-income (- net-income last-net-income)]
-   (if (< diff-net-income 0)
-     true
-     false)))
+  (if (> last-net-income net-income)
+    true
+    false))
 
 (defn buy? [operation]
   (if (= operation "buy")
     true
     false))
+
+(defn loss-acc?
+  [loss-acc]
+  (if (> loss-acc 0.0)
+    true
+    false))
+
+(defn sell? [operation] (not (buy? operation)))
 
 (defn update-transactions
   [transactions operation new-key]
