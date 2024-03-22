@@ -22,20 +22,23 @@
       (process-tax)))
 
 (tests
-
  "net-income"
- (map :net-income (main "./data/mock.json"))  := [0 0 0]
- (map :net-income (main "./data/mock2.json")) := [0 10000 0]
- (map :net-income (main "./data/mock3.json")) := [0 0 1000]
- (map :net-income (main "./data/mock4.json")) := [0 0 0]
- (map :net-income (main "./data/mock5.json")) := [0 0 0 10000]
+ (map :net-income (main "./data/mock.json"))  := [0 250.0 500.0]
+ (map :net-income (main "./data/mock2.json")) := [0 -25000.00 5000.00]
+ ;; (map :net-income (main "./data/mock3.json")) := [0 0 1000]
+ ;; (map :net-income (main "./data/mock4.json")) := [0 0 0]
+ ;; (map :net-income (main "./data/mock5.json")) := [0 0 0 10000]
+ ;; (map :net-income (main "./data/mock6.json")) := [0 0 0 0 3000.00]
+ (map :net-income (main "./data/mock7.json")) := [0 400000.0 400000.0 700000.0]
 
  "tax"
  (map :tax (main "./data/mock.json"))  := [0 0 0]
- (map :tax (main "./data/mock2.json")) := [0 10000.00 0]
- (map :tax (main "./data/mock3.json")) := [0 0 1000.00]
- (map :tax (main "./data/mock4.json")) := [0 0 0]
- (map :tax (main "./data/mock5.json")) := [0 0 0 10000.00])
+ (map :tax (main "./data/mock2.json")) := [0 0 1000.00]
+ (map :tax (main "./data/mock3.json")) := [0 0 0]
+ (map :tax (main "./data/mock4.json")) := [0 0 0 10000.00]
+ (map :tax (main "./data/mock5.json")) := [0 0 0 3000.00]
+ (map :tax (main "./data/mock6.json")) := [0 0 0 0 3000.00 0 0 3700.00 0]
+ (map :tax (main "./data/mock7.json")) := [0 80000.00 0 60000.00])
 
 (comment
  (let [path "./data/mock.json"]

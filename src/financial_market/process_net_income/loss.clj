@@ -1,10 +1,12 @@
-(ns financial-market.process-net-income.loss)
+(ns financial-market.process-net-income.loss
+  (:require
+    [financial-market.helpers.transactions :as h]))
 
 (defn calculate-loss [total-cost acquisition-price]
-  (- acquisition-price total-cost))
+  (h/round 2 (- acquisition-price total-cost)))
 
 (defn calculate-loss-accumulation [loss loss-accumulation]
-  (+ loss-accumulation loss))
+  (h/round 2 (+ loss-accumulation loss)))
 
 #_(defn process-loss [total-cost acquisition-price loss-accumulation]
     (let [loss (calculate-loss total-cost acquisition-price)]

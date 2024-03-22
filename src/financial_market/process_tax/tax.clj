@@ -1,17 +1,18 @@
 (ns financial-market.process-tax.tax
   (:require
+   [clojure.pprint :as pprint]
    [financial-market.helpers.transactions :as h]
-   [clojure.pprint :as pprint]))
+   [financial-market.process-net-income.loss :as loss]
+   [financial-market.process-net-income.profit :as profit]))
 
 ;; predicates
-(defn positive-net-income? [net-income]
-  (if (> net-income 0)
+(defn positive-profit? [profit]
+  (if (> profit 0)
     true
     false))
 
 (defn tax? [total-cost]
-  (let [minimum 20000
-        _  (clojure.pprint/pprint (str "tax? -- total-cost: " total-cost))]
+  (let [minimum 20000]
     (if (> total-cost minimum)
       (do
         (println "yes")
@@ -21,18 +22,18 @@
         false))))
 
 ;; calculate
-(defn tax-net-income [net-income]
+(defn tax-profit [profit]
   (let [tax-rate 0.2]
-    (h/round 2 (* tax-rate net-income))))
+    (h/round 2 (* tax-rate profit))))
 
 (defn calculate-tax
-  [{:keys [total-cost net-income]}]
-  (do
-   (pprint/pprint {:total-cost (if (nil? total-cost) 0.0 total-cost)
-                   :net-income net-income
-                   :calculated-tax (tax-net-income net-income)})
-   (if (and (tax? (if (nil? total-cost) 0.0 total-cost))
-            (positive-net-income? net-income))
-     (tax-net-income net-income)
+  [{:keys [total-cost net-income]} {:keys [last-net-income]}]
+  (let [last-net-income (if (> last-net-income 0)
+                          last-net-income
+                          0)]
+   (pprint/pprint {:total-cost        (if (nil? total-cost) 0.0 total-cost)
+                   :profit-net-income net-income
+                   :calculated-tax    (tax-profit net-income)})
+   (if (and (tax? total-cost) (positive-profit? net-income))
+     (tax-profit (- net-income last-net-income))
      0)))
-

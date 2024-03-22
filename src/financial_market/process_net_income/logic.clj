@@ -122,36 +122,44 @@
                         :net-income net-income
                         :loss-acc   loss-acc
                         :profit-acc profit-acc}))
-        (if (profit? {:total-cost        total-cost
-                      :acquisition-price acquisition-price})
-          (let [{:keys [net-income new-transaction-map
-                        profit-acc loss-acc]}
-                (profit-update-map-recur  {:total-cost        total-cost
-                                           :acquisition-price acquisition-price
-                                           :loss-acc          loss-acc
-                                           :profit-acc        profit-acc
-                                           :transaction       transaction})]
+       (if (h/sell? operation)
+         (if (profit? {:total-cost        total-cost
+                       :acquisition-price acquisition-price})
+           (let [{:keys [net-income new-transaction-map profit-acc loss-acc]}
+                 (profit-update-map-recur  {:total-cost        total-cost
+                                            :acquisition-price acquisition-price
+                                            :loss-acc          loss-acc
+                                            :profit-acc        profit-acc
+                                            :transaction       transaction})]
+              (recur
+               (conj results new-transaction-map)
+               (identity loss-acc)
+               (identity profit-acc)
+               (identity net-income)
+               (first rest-transactions)
+               (rest rest-transactions)))
+           (let [{:keys [net-income new-transaction-map
+                         loss-acc]}
+                 (loss-update-map-recur  {:total-cost        total-cost
+                                          :acquisition-price acquisition-price
+                                          :loss-acc          loss-acc
+                                          :profit-acc        profit-acc
+                                          :transaction       transaction})]
              (recur
               (conj results new-transaction-map)
               (identity loss-acc)
               (identity profit-acc)
               (identity net-income)
               (first rest-transactions)
-              (rest rest-transactions)))
-          (let [{:keys [net-income new-transaction-map
-                        loss-acc]}
-                (loss-update-map-recur  {:total-cost        total-cost
-                                         :acquisition-price acquisition-price
-                                         :loss-acc          loss-acc
-                                         :profit-acc        profit-acc
-                                         :transaction       transaction})]
-            (recur
+              (rest rest-transactions))))
+         (let [new-transaction-map  (assoc-income {:transaction transaction
+                                                   :net-income net-income
+                                                   :loss-acc   loss-acc
+                                                   :profit-acc profit-acc})]
+           (recur
              (conj results new-transaction-map)
              (identity loss-acc)
              (identity profit-acc)
              (identity net-income)
              (first rest-transactions)
              (rest rest-transactions))))))))
-
-
-

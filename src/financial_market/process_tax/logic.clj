@@ -15,14 +15,12 @@
         _                   (pprint/pprint "---------new-process----------")
         _                   (pprint/pprint {:operation operation
                                             :incomes incomes
-                                            :loss-acc transaction})]
+                                            :transaction transaction})]
    (if (or (h/buy? operation)
            (h/loss-acc? (:loss-acc transaction)))
-           ;; (and (h/sell? operation)
-           ;;      (h/decrease-net-income? incomes)))
      (let [tax-map (assoc transaction :tax 0)]
        (conj results tax-map))
-     (let [tax-map (assoc transaction :tax (tax/calculate-tax transaction))]
+     (let [tax-map (assoc transaction :tax (tax/calculate-tax transaction incomes))]
        (conj results tax-map)))))
 
 ;; add :tax to transactions-map
@@ -31,10 +29,10 @@
          last-transaction                     {}
          {:keys [operation] :as transaction}  (first transactions)
          rest-transactions                    (rest transactions)]
-    (let [data {:operation operation
-                :last-transaction last-transaction
-                :results results
-                :transaction transaction}]
+    (let [data {:operation          operation
+                :last-transaction   last-transaction
+                :results            results
+                :transaction        transaction}]
      (if (empty? rest-transactions)
        (process-operation data)
        (recur (process-operation data)
