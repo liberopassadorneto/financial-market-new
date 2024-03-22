@@ -10,7 +10,7 @@
 
 (defn calculate-net-income
   [{:keys [profit-acc loss-acc]}]
-  (- profit-acc loss-acc))
+  (h/round 2 (- profit-acc loss-acc)))
 
  ;; => [{:operation "buy",
  ;;      :unit-cost 10.0,
@@ -71,7 +71,9 @@
                                          :net-income net-income
                                          :loss-acc   loss-acc
                                          :profit-acc profit-acc})
-     :net-income net-income}))
+     :net-income net-income
+     :profit-acc profit-acc
+     :loss-acc loss-acc}))
 
 (defn loss-update-map-recur
   [{:keys [total-cost acquisition-price loss-acc
@@ -84,7 +86,8 @@
                     :net-income net-income
                     :loss-acc   loss-acc
                     :profit-acc profit-acc})
-     :net-income net-income}))
+     :net-income net-income
+     :loss-acc loss-acc}))
 
 
 ;; key-value :net-income
@@ -121,7 +124,8 @@
                         :profit-acc profit-acc}))
         (if (profit? {:total-cost        total-cost
                       :acquisition-price acquisition-price})
-          (let [{:keys [net-income new-transaction-map]}
+          (let [{:keys [net-income new-transaction-map
+                        profit-acc loss-acc]}
                 (profit-update-map-recur  {:total-cost        total-cost
                                            :acquisition-price acquisition-price
                                            :loss-acc          loss-acc
@@ -134,7 +138,8 @@
               (identity net-income)
               (first rest-transactions)
               (rest rest-transactions)))
-          (let [{:keys [net-income new-transaction-map]}
+          (let [{:keys [net-income new-transaction-map
+                        loss-acc]}
                 (loss-update-map-recur  {:total-cost        total-cost
                                          :acquisition-price acquisition-price
                                          :loss-acc          loss-acc

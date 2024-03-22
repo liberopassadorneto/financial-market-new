@@ -1,5 +1,11 @@
 (ns financial-market.helpers.transactions)
 
+(defn round
+  "Round a double to the given precision (number of significant digits)"
+  [precision d]
+  (let [factor (Math/pow 10 precision)]
+    (/ (Math/round (* d factor)) factor)))
+
 (defn decrease-net-income?
   [{:keys [last-net-income net-income]}]
   (if (> last-net-income net-income)

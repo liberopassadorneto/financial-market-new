@@ -14,7 +14,8 @@
                              :net-income current-net-income}
         _                   (pprint/pprint "---------new-process----------")
         _                   (pprint/pprint {:operation operation
-                                            :incomes incomes})]
+                                            :incomes incomes
+                                            :loss-acc transaction})]
    (if (or (h/buy? operation)
            (h/loss-acc? (:loss-acc transaction)))
            ;; (and (h/sell? operation)
