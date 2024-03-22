@@ -1,5 +1,31 @@
 # financial-market
 
+## Como rodar o projeto
+
+Compile:
+``` sh
+lein uberjar
+```
+
+Output:
+``` sh
+(...)
+Created /home/galois/PP/financial-market/target/financial-market-0.1.0-SNAPSHOT.jar
+Created /home/galois/PP/financial-market/target/financial-market-0.1.0-SNAPSHOT-standalone.jar
+```
+
+Rode o jar, provendo um caminho para um json:
+
+``` sh
+ java -jar target/financial-market-0.1.0-SNAPSHOT-standalone.jar ./data/mock2.json
+```
+
+Output:
+
+``` sh
+[{"tax" 0} {"tax" 0} {"tax" 1000.0}]
+```
+
 ## Descrição
 
 Este projeto implementa um programa de linha de comando (CLI) para o INMA-UFMS (Instituto de Matemática da Universidade Federal de Mato Grosso do Sul). 
@@ -58,4 +84,4 @@ O programa processa uma lista de operações do mercado financeiro de ações e 
 - Exemplos estao em assets/use_cases
 
 ## Desenho do fluxograma da aplicação: [link-do-excalidraw](https://excalidraw.com/#room=591bff02bea137054930,-2kZhkcQRabe_hCf1O8lcw)# financial-market-new
-# financial-market-new
+
