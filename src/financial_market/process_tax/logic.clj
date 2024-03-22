@@ -1,6 +1,6 @@
 (ns financial-market.process-tax.logic
   (:require
-   [clojure.pprint :as pprint]
+   ;; [clojure.pprint :as pprint]
    [financial-market.helpers.transactions :as h]
    [financial-market.process-tax.tax :as tax]
    [financial-market.helpers.encoding :as encoding]))
@@ -12,11 +12,11 @@
                               (:net-income last-transaction))
         current-net-income  (:net-income transaction)
         incomes             {:last-net-income last-net-income
-                             :net-income current-net-income}
-        _                   (pprint/pprint "---------new-process----------")
-        _                   (pprint/pprint {:operation operation
-                                            :incomes incomes
-                                            :transaction transaction})]
+                             :net-income current-net-income}]
+        ;; _                   (pprint/pprint "---------new-process----------")
+        ;; _                   (pprint/pprint {:operation operation
+        ;;                                     :incomes incomes
+        ;;                                     :transaction transaction})]
    (if (or (h/buy? operation)
            (h/loss-acc? (:loss-acc transaction)))
      (let [tax-map (assoc transaction :tax 0)]
@@ -44,6 +44,6 @@
 (defn filter-taxes
   [transactions]
   (let [taxes []]
-   (for [{:keys [tax]} transactions]
-     (conj taxes {:tax tax}))))
-   
+   (-> (for [{:keys [tax]} transactions]
+        (conj taxes {:tax tax}))
+       (flatten))))

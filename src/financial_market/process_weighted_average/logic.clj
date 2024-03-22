@@ -1,7 +1,7 @@
 (ns financial-market.process-weighted-average.logic
   (:require
-   [financial-market.helpers.transactions :as h]
-   [clojure.pprint :as pp]))
+   [financial-market.helpers.transactions :as h]))
+   ;; [clojure.pprint :as pp]))
 
 (defn f [{:keys [total-stocks weighted-average] :as values}]
   (* total-stocks weighted-average))

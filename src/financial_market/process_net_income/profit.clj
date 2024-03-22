@@ -24,7 +24,8 @@
       updated-profit-accumulation))
 
 
-(defn process-profit [total-cost acquisition-price loss-accumulation profit-accumulation]
+(defn process-profit
+  [total-cost acquisition-price loss-accumulation profit-accumulation]
   (-> total-cost
       (calculate-profit acquisition-price)
       (calculate-profit-after-deductions loss-accumulation)

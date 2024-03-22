@@ -7,7 +7,8 @@
                  [org.clojure/data.json "2.5.0"]
                  [cheshire "5.12.0"]
                  [com.hyperfiddle/rcf "20220926-202227"]]
-  :main ^:skip-aot financial-market.core)
+  :main ^:skip-aot financial-market.core
+  :profiles {:uberjar {:aot :all}})
   ;; :repl-options {:init-ns financial_market.main})
 
   ;; :target-path "target/%s"
