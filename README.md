@@ -83,5 +83,5 @@ O programa processa uma lista de operações do mercado financeiro de ações e 
 
 - Exemplos estao em assets/use_cases
 
-## Desenho do fluxograma da aplicação: [link-do-excalidraw](https://excalidraw.com/#room=591bff02bea137054930,-2kZhkcQRabe_hCf1O8lcw)# financial-market-new
+## Desenho do fluxograma da aplicação: [link-do-excalidraw](https://excalidraw.com/#room=591bff02bea137054930,-2kZhkcQRabe_hCf1O8lcw)
 
